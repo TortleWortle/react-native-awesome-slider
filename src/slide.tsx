@@ -245,6 +245,7 @@ export type AwesomeSliderProps = {
    * When 'heartbeat' is set to true, the progress bar color will animate back and forth between its current color and the color specified for the heartbeat.
    */
   heartbeat?: boolean;
+  alwaysShowBubble?: boolean;
 };
 const defaultTheme: SliderThemeType = {
   minimumTrackTintColor: palette.Main,
@@ -298,6 +299,7 @@ export const Slider: FC<AwesomeSliderProps> = memo(function Slider({
   failOffsetX,
   failOffsetY,
   heartbeat = false,
+  alwaysShowBubble = false
 }) {
   const snappingEnabled = snapToStep && step;
   const bubbleRef = useRef<BubbleRef>(null);
@@ -324,7 +326,7 @@ export const Slider: FC<AwesomeSliderProps> = memo(function Slider({
   const [sliderWidth, setSliderWidth] = useState(0);
   const width = useSharedValue(0);
   const thumbValue = useSharedValue(0);
-  const bubbleOpacity = useSharedValue(0);
+  const bubbleOpacity = useSharedValue(alwaysShowBubble ? 1 : 0);
   const markLeftArr = useSharedValue<number[]>([]);
   const isTriggedHaptic = useSharedValue(false);
   const _theme = {
@@ -660,7 +662,9 @@ export const Slider: FC<AwesomeSliderProps> = memo(function Slider({
               : PanDirectionEnum.RIGHT;
           prevX.value = x;
         }
-        bubbleOpacity.value = withSpring(1);
+        if (!alwaysShowBubble) {
+          bubbleOpacity.value = withSpring(1);
+        }
 
         onActiveSlider(x);
       })
@@ -675,7 +679,9 @@ export const Slider: FC<AwesomeSliderProps> = memo(function Slider({
         if (panDirectionValue) {
           panDirectionValue.value = PanDirectionEnum.END;
         }
-        bubbleOpacity.value = withSpring(0);
+        if (!alwaysShowBubble) {
+          bubbleOpacity.value = withSpring(0);
+        }
 
         if (disableTrackFollow) {
           progress.value = xToProgress(x);
@@ -740,7 +746,9 @@ export const Slider: FC<AwesomeSliderProps> = memo(function Slider({
           if (isScrubbing) {
             isScrubbing.value = true;
           }
-          bubbleOpacity.value = withSpring(0);
+          if (!alwaysShowBubble) {
+            bubbleOpacity.value = withSpring(0);
+          }
           if (onSlidingComplete) {
             runOnJS(onSlidingComplete)(shareValueToSeconds());
           }
