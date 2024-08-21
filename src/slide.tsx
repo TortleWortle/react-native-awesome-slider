@@ -217,14 +217,14 @@ export type AwesomeSliderProps = {
    *
    * @see https://docs.swmansion.com/react-native-gesture-handler/docs/gestures/pan-gesture#activeoffsetxvalue-number--number
    */
-  activeOffsetX?: number | number[];
+  activeOffsetX?: number | [start: number, end: number];
   /**
    * Range along Y axis (in points) where fingers travels without activation of
    * gesture. Moving outside of this range implies activation of gesture.
    *
    * @see https://docs.swmansion.com/react-native-gesture-handler/docs/gestures/pan-gesture#activeoffsetyvalue-number--number
    */
-  activeOffsetY?: number | number[];
+  activeOffsetY?: number | [start: number, end: number];
   /**
    * When the finger moves outside this range (in points) along X axis and
    * gesture hasn't yet activated it will fail recognizing the gesture. Range
@@ -232,7 +232,7 @@ export type AwesomeSliderProps = {
    *
    * @see https://docs.swmansion.com/react-native-gesture-handler/docs/gestures/pan-gesture#failoffsetyvalue-number--number
    */
-  failOffsetX?: number | number[];
+  failOffsetX?: number | [start: number, end: number];
   /**
    * When the finger moves outside this range (in points) along Y axis and
    * gesture hasn't yet activated it will fail recognizing the gesture. Range
@@ -240,7 +240,7 @@ export type AwesomeSliderProps = {
    *
    * @see https://docs.swmansion.com/react-native-gesture-handler/docs/gestures/pan-gesture#failoffsetxvalue-number--number
    */
-  failOffsetY?: number | number[];
+  failOffsetY?: number | [start: number, end: number];
   /**
    * When 'heartbeat' is set to true, the progress bar color will animate back and forth between its current color and the color specified for the heartbeat.
    */
